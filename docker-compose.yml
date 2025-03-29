@@ -7,9 +7,20 @@ services:
         volumes:
             - open-webui:/app/backend/data
         extra_hosts:
-            - 'host.docker.internal:host-gateway'
+            - host.docker.internal:host-gateway
         ports:
             - 3081:8080
         env_file: stack.env
+    pipelines:
+        image: ghcr.io/open-webui/pipelines:main
+        container_name: pipelines
+        restart: always
+        volumes:
+            - pipelines:/app/pipelines
+        extra_hosts:
+            - host.docker.internal:host-gateway
+        ports:
+            - 9099:9099
 volumes:
   open-webui:
+  pipelines:
